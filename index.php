@@ -10,7 +10,7 @@
 </head>
 
 <body class="bg-primary">
-    <form action="insert.php" method="post">
+    <form action="insert.php" method="get">
         <div class="contanier">
             <div class="bg-white mt-3 py-3">
                 <h3 class="d-flex justify-content-center">TODO LIST</h3>
@@ -19,11 +19,71 @@
                 </div>
                 <br>
                 <div class="d-flex justify-content-center">
-                    <button class="btn btn-success" >Add DATA</button>
+                    <button class="btn btn-success" name="submit" type="submit" >Add DATA</button>
                 </div>
             </div>
         </div>
     </form>
+    <?php
+ include 'config.php';
+
+    $rawdata=mysqli_query($conn,"SELECT * FROM `todo_list`");
+
+
+?>
+    <!-- / table/ --> 
+   <div class="container">
+    <div class="col-8 bg-white m-auto mt-3">
+        <table class="table">
+         <tbody>
+         <tr>
+       
+       <?php
+       while($row=mysqli_fetch_array($rawdata)){
+
+       
+       ?>
+        <td > 
+            <?php
+            echo $row['Id'];
+            
+            
+            ?>
+    </td>
+    <td  > 
+            <?php
+           
+            echo $row['Name'];
+            
+            ?>
+    </td>
+    <td  >
+    <a href="update.php ? ID=<?php echo $row['Id'];?> ">
+     <button style="width:100%"  class="btn btn-danger" >update</button>
+    </a> 
+</td>
+    <td  >
+    <a href="delete.php ? ID=<?php echo $row['Id'];?> ">
+    <button style="width:100%" type="submitdelete" name="submitdelete" class="btn btn-success" > 
+        delete</button>
+    </a>
+</td>
+</tr>
+<?php
+}
+?>
+
+         </tbody>   
+
+        </table>
+
+    </div>
+
+
+   </div>
+
+
 </body>
 
 </html>
+
